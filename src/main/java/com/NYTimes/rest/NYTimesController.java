@@ -1,6 +1,8 @@
 package com.NYTimes.rest;
 
 import com.NYTimes.data.Response;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -8,13 +10,22 @@ import org.springframework.web.client.RestTemplate;
 /**
  * Created by iceman on 11/29/2016.
  */
+@Component
 @RestController
 public class NYTimesController {
 
+    @Value("${nytimes.top.stories.base.url}")
+    String topStories;
+
+    @Value("${nytimes.key}")
+    String key;
+
     @RequestMapping("/")
     public String index() {
+        String URL = topStories+"?api-key="+key;
+        System.out.println("Calling URL : "+URL);
         RestTemplate restTemplate = new RestTemplate();
-        Response response = restTemplate.getForObject("https://api.nytimes.com/svc/topstories/v2/home.json?api-key=84221d7a9b934df88d7592dd513fb85b", Response.class);
+        Response response = restTemplate.getForObject(topStories+"?api-key="+key, Response.class);
         return response.toString();
     }
 }
