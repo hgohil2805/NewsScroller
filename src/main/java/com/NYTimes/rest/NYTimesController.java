@@ -5,6 +5,7 @@ import com.sun.javafx.fxml.builder.URLBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -22,7 +23,7 @@ public class NYTimesController {
     @Value("${nytimes.key}")
     String key;
 
-    @RequestMapping("/")
+    @RequestMapping(value="/",method= RequestMethod.GET, produces = "application/json")
     public String index() {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(topStories)
                 .queryParam("api-key",key);
