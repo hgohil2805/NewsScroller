@@ -3,6 +3,8 @@ package com.NYTimes.data;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
+
 /**
  * Created by iceman on 11/29/2016.
  */
@@ -34,6 +36,16 @@ public class Results {
     String kicker;
     @JsonProperty("short_url")
     String short_url;
+    @JsonProperty("multimedia")
+    List<Multimedia> multiMedia;
+
+    public List<Multimedia> getMultiMedia() {
+        return multiMedia;
+    }
+
+    public void setMultiMedia(List<Multimedia> multiMedia) {
+        this.multiMedia = multiMedia;
+    }
 
     public String getSection() {
         return section;
@@ -155,6 +167,7 @@ public class Results {
                 ", material_type_facet='" + material_type_facet + '\'' +
                 ", kicker='" + kicker + '\'' +
                 ", short_url='" + short_url + '\'' +
+                ", multiMedia=" + multiMedia +
                 '}';
     }
 }
