@@ -25,12 +25,11 @@ public class NYTimesController {
     String key;
 
     @RequestMapping(value="/home/{section}",method= RequestMethod.GET, produces = "application/json")
-    public String index(@PathVariable String section) {
+    public String getStoriesOfSection(@PathVariable String section) {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(topStories)
                 .queryParam("api-key",key);
         RestTemplate restTemplate = new RestTemplate();
         Response response = restTemplate.getForObject(builder.buildAndExpand(section).encode().toUri(), Response.class);
         return response.toString();
-
     }
 }
