@@ -2,12 +2,14 @@ package com.NYTimes.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.cache.annotation.Cacheable;
 
 import java.util.List;
 
 /**
  * Created by iceman on 11/29/2016.
  */
+@Cacheable("results")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Results {
     @JsonProperty("section")
