@@ -1,7 +1,9 @@
 package com.NYTimes.rest;
 
+
+import com.NYTimes.NYTimesDao.ResponseDaoImpl;
 import com.NYTimes.data.Response;
-import com.sun.javafx.fxml.builder.URLBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,12 +26,16 @@ public class NYTimesController {
     @Value("${nytimes.key}")
     String key;
 
+    @Autowired
+    ResponseDaoImpl responseDaoImpl;
+
     @RequestMapping(value="/home/{section}",method= RequestMethod.GET, produces = "application/json")
     public String getStoriesOfSection(@PathVariable String section) {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(topStories)
                 .queryParam("api-key",key);
         RestTemplate restTemplate = new RestTemplate();
         Response response = restTemplate.getForObject(builder.buildAndExpand(section).encode().toUri(), Response.class);
+        responseDaoImpl.persistResponse(response);
         return response.toString();
     }
 }

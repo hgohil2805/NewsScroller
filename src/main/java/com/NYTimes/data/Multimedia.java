@@ -1,12 +1,16 @@
 package com.NYTimes.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * Created by iceman on 2/12/2017.
  */
+@Document(collection="multimedia")
 public class Multimedia {
 
+    @Id
     @JsonProperty("url")
     String url;
     @JsonProperty("format")

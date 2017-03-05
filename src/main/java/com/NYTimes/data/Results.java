@@ -3,12 +3,16 @@ package com.NYTimes.data;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
 /**
  * Created by iceman on 11/29/2016.
  */
+@Document(collection="results")
 @Cacheable("results")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Results {
@@ -16,6 +20,7 @@ public class Results {
     String section;
     @JsonProperty("subsection")
     String subsection;
+    @Id
     @JsonProperty("title")
     String title;
     @JsonProperty("abstract")
@@ -38,8 +43,10 @@ public class Results {
     String kicker;
     @JsonProperty("short_url")
     String short_url;
+    @DBRef(db="multimedia")
     @JsonProperty("multimedia")
     List<Multimedia> multiMedia;
+
 
     public List<Multimedia> getMultiMedia() {
         return multiMedia;
